@@ -1,4 +1,4 @@
-import Footer from "./reuseableComponents/footer";
+import Footer from "./reuseableComponents/Footer/Footer";
 
 function App() {
   return (
