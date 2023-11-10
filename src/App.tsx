@@ -1,9 +1,9 @@
-import Footer from "./reuseableComponents/Footer/Footer";
+import Navbar from "./reuseableComponents/Navbar/NavbarMain";
 
 function App() {
   return (
     <>
-      <Footer />
+      <Navbar />
     </>
   );
 }
