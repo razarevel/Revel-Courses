@@ -23,7 +23,7 @@ export default function MobileNav() {
           <NavButton change={show} handleClick={handleClickEvent} />
         </div>
       </div>
-      <MobNavList display={show} />
+      <MobNavList display={show} handleCick={handleClickEvent} />
     </div>
   );
 }

@@ -1,8 +1,8 @@
 interface Props {
   handleClick: () => void;
-  change: boolean
+  change: boolean;
 }
-export default function NavButton({ handleClick,change }: Props) {
+export default function NavButton({ handleClick, change }: Props) {
   return (
     <>
       <div
@@ -25,7 +25,7 @@ export default function NavButton({ handleClick,change }: Props) {
           className={
             "w-full scale-x-[0.5] origin-right h-0.5 bg-black absolute bottom-0 right-0 duration-300 " +
             (change &&
-              " scale-x-100 rotate-[45deg] -translate-x-[0.25rem] translate-y-[2px]")
+              " scale-x-[100%] rotate-[45deg] -translate-x-[0.25rem] translate-y-[2px]")
           }
         ></div>
       </div>

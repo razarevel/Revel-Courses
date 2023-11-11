@@ -1,7 +1,10 @@
+import { Link } from "react-router-dom";
+
 interface Props {
   display: boolean;
+  handleCick: () => void;
 }
-export default function MobNavList({ display }: Props) {
+export default function MobNavList({ display, handleCick }: Props) {
   return (
     <div
       className={
@@ -15,32 +18,33 @@ export default function MobNavList({ display }: Props) {
           (display ? " opacity-100 " : " delay-0 opacity-0")
         }
       >
-        <a
-          href="/"
+        <Link
+          to={"/"}
           className="text-lg font-[400] duration-300 hover:translate-x-2.5 hover:scale-105"
         >
           Home
-        </a>
-        <a
-          href="/"
+        </Link>
+        <Link
+          to={"/courses"}
           className="text-lg font-[400] duration-300 hover:translate-x-2.5 hover:scale-105"
         >
           Courses
-        </a>
-        <a
-          href="/"
+        </Link>
+        <Link
+          to={"/about"}
           className="text-lg font-[400] duration-300 hover:translate-x-2.5 hover:scale-105"
         >
           About Us
-        </a>
-        <a
-          href="/"
+        </Link>
+        <Link
+          to={"/pricing"}
           className="text-lg font-[400] duration-300 hover:translate-x-2.5 hover:scale-105"
         >
           Pricing
-        </a>
+        </Link>
         <a
-          href="/"
+          onClick={handleCick}
+          href="#footer"
           className="text-lg font-[400] duration-300 hover:translate-x-2.5 hover:scale-105"
         >
           Contact
