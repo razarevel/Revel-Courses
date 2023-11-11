@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 export default function HeroHeading() {
   return (
-    <div className="flex flex-col py-28 space-y-12">
+    <div className="flex flex-col  space-y-12">
       {/* header */}
       <div className="flex items-center justify-center overflowhidden w-full ">
         <div className=" bg-white space-x-4 flex px-4 py-3 items-center relative rounded-md">
