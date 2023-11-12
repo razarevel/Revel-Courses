@@ -1,0 +1,100 @@
+{/* Second */}
+        <div className="border  p-6 space-y-5 rounded-lg" key={el[1].id}>
+          <div className="w-full relative flex items-center">
+            {/* heading */}
+            <h1 className="text-xl font-semibold">{el[1].heading}</h1>
+            {/* button */}
+            <div
+              className="w-10 h-10 absolute right-0 "
+              onClick={() => setShow2(!show2)}
+            >
+              <div className="absolute w-full h-full bg-yellow-600 opacity-50"></div>
+              <div className="w-full h-full flex items-center justify-center">
+                <div className="w-3 bg-black h-0.5 absolute"></div>
+                <div
+                  className={
+                    "w-3 bg-black h-0.5 rotate-90 absolute duration-300 " +
+                    (show2 && " rotate-0")
+                  }
+                ></div>
+              </div>
+            </div>
+          </div>
+          <div className="w-full border-t origin-center scale-x-95"></div>
+          <p>{el[1].ans}</p>
+        </div>
+        {/* Third */}
+        <div className="border  p-6 space-y-5 rounded-lg" key={el[2].id}>
+          <div className="w-full relative flex items-center">
+            {/* heading */}
+            <h1 className="text-xl font-semibold">{el[2].heading}</h1>
+            {/* button */}
+            <div
+              className="w-10 h-10 absolute right-0 "
+              onClick={() => setShow3(!show3)}
+            >
+              <div className="absolute w-full h-full bg-yellow-600 opacity-50"></div>
+              <div className="w-full h-full flex items-center justify-center">
+                <div className="w-3 bg-black h-0.5 absolute"></div>
+                <div
+                  className={
+                    "w-3 bg-black h-0.5 rotate-90 absolute duration-300 " +
+                    (show3 && " rotate-0")
+                  }
+                ></div>
+              </div>
+            </div>
+          </div>
+          <div className="w-full border-t origin-center scale-x-95"></div>
+          <p>{el[2].ans}</p>
+        </div>
+        {/* Fourth */}
+        <div className="border  p-6 space-y-5 rounded-lg" key={el[3].id}>
+          <div className="w-full relative flex items-center">
+            {/* heading */}
+            <h1 className="text-xl font-semibold">{el[3].heading}</h1>
+            {/* button */}
+            <div
+              className="w-10 h-10 absolute right-0 "
+              onClick={() => setShow4(!show4)}
+            >
+              <div className="absolute w-full h-full bg-yellow-600 opacity-50"></div>
+              <div className="w-full h-full flex items-center justify-center">
+                <div className="w-3 bg-black h-0.5 absolute"></div>
+                <div
+                  className={
+                    "w-3 bg-black h-0.5 rotate-90 absolute duration-300 " +
+                    (show4 && " rotate-0")
+                  }
+                ></div>
+              </div>
+            </div>
+          </div>
+          <div className="w-full border-t origin-center scale-x-95"></div>
+          <p>{el[3].ans}</p>
+        </div>
+        {/* Fiveth */}
+        <div className="border  p-6 space-y-5 rounded-lg" key={el[4].id}>
+          <div className="w-full relative flex items-center">
+            {/* heading */}
+            <h1 className="text-xl font-semibold">{el[4].heading}</h1>
+            {/* button */}
+            <div
+              className="w-10 h-10 absolute right-0 "
+              onClick={() => setShow5(!show5)}
+            >
+              <div className="absolute w-full h-full bg-yellow-600 opacity-50"></div>
+              <div className="w-full h-full flex items-center justify-center">
+                <div className="w-3 bg-black h-0.5 absolute"></div>
+                <div
+                  className={
+                    "w-3 bg-black h-0.5 rotate-90 absolute duration-300 " +
+                    (show5 && " rotate-0")
+                  }
+                ></div>
+              </div>
+            </div>
+          </div>
+          <div className="w-full border-t origin-center scale-x-95"></div>
+          <p>{el[4].ans}</p>
+        </div>
