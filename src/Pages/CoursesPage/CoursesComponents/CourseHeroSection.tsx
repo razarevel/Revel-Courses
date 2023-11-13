@@ -1,3 +1,5 @@
+import CoursesPageGrid from "./CoursesPageGrid";
+
 export default function CourseHeroSection() {
   return (
     <>
@@ -14,6 +16,8 @@ export default function CourseHeroSection() {
             find the perfect fit for your learning journey.
           </p>
         </div>
+        {/* courses */}
+        <CoursesPageGrid />
       </div>
     </>
   );
