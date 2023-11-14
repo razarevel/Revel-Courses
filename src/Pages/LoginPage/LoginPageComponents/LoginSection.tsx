@@ -4,7 +4,7 @@ import { MdArrowOutward } from "react-icons/md";
 export default function LoginSection() {
   const [showPass, setShowPass] = useState(false);
   return (
-    <div className="bg-white p-4 sm:p-5 md:p-10 rounded-lg lg:w-[40%] shadow-sm">
+    <div className="bg-white p-4 sm:p-5 md:p-10 rounded-lg xl:w-[60%] shadow-sm">
       {/* heading */}
       <div className="text-center space-y-3">
         <h1 className="text-4xl font-semibold">Login</h1>
