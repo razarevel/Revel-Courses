@@ -29,9 +29,9 @@ export default function DeskNavList() {
           <div className="w-full h-0.5 bg-black rounded-full scale-x-0 duration-300 group-hover:scale-x-[80%]"></div>
         </div>
         <div className="group cursor-pointer space-y-1">
-          <a href="#footer" className="text-[1.2rem]">
+          <Link to={"/contact"} className="text-[1.2rem]">
             Contact
-          </a>
+          </Link>
           <div className="w-full h-0.5 bg-black rounded-full scale-x-0 duration-300 group-hover:scale-x-[80%]"></div>
         </div>
       </div>

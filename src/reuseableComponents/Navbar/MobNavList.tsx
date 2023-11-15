@@ -42,13 +42,13 @@ export default function MobNavList({ display, handleCick }: Props) {
         >
           Pricing
         </Link>
-        <a
+        <Link
+          to={"/contact"}
           onClick={handleCick}
-          href="#footer"
           className="text-lg font-[400] duration-300 hover:translate-x-2.5 hover:scale-105"
         >
           Contact
-        </a>
+        </Link>
       </div>
     </div>
   );
