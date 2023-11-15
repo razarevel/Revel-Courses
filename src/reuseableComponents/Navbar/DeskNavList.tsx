@@ -4,36 +4,26 @@ export default function DeskNavList() {
   return (
     <>
       <div className="flex items-center justify-between space-x-8">
-        <div className="group cursor-pointer space-y-1">
-          <Link to={"/"} className="text-[1.2rem]">
-            Home
-          </Link>
+        <Link to={"/"} className="group cursor-pointer space-y-1">
+          <p className="text-[1.2rem]">Home</p>
           <div className="w-full h-0.5 bg-black rounded-full scale-x-0 duration-300 group-hover:scale-x-[80%]"></div>
-        </div>
-        <div className="group cursor-pointer space-y-1">
-          <Link to={"/courses"} className="text-[1.2rem]">
-            Courses
-          </Link>
+        </Link>
+        <Link to={"/courses"} className="group cursor-pointer space-y-1">
+          <p className="text-[1.2rem]">Courses</p>
           <div className="w-full h-0.5 bg-black rounded-full scale-x-0 duration-300 group-hover:scale-x-[80%]"></div>
-        </div>
-        <div className="group cursor-pointer space-y-1">
-          <Link to={"/about"} className="text-[1.2rem]">
-            About Us
-          </Link>
+        </Link>
+        <Link to={"/about"} className="group cursor-pointer space-y-1">
+          <p className="text-[1.2rem]">About Us</p>
           <div className="w-full h-0.5 bg-black rounded-full scale-x-0 duration-300 group-hover:scale-x-[80%]"></div>
-        </div>
-        <div className="group cursor-pointer space-y-1">
-          <Link to={"/pricing"} className="text-[1.2rem]">
-            Pricing
-          </Link>
+        </Link>
+        <Link to={"/pricing"} className="group cursor-pointer space-y-1">
+          <p className="text-[1.2rem]">Pricing</p>
           <div className="w-full h-0.5 bg-black rounded-full scale-x-0 duration-300 group-hover:scale-x-[80%]"></div>
-        </div>
-        <div className="group cursor-pointer space-y-1">
-          <Link to={"/contact"} className="text-[1.2rem]">
-            Contact
-          </Link>
+        </Link>
+        <Link to={"/contact"} className="group cursor-pointer space-y-1">
+          <p className="text-[1.2rem]">Contact</p>
           <div className="w-full h-0.5 bg-black rounded-full scale-x-0 duration-300 group-hover:scale-x-[80%]"></div>
-        </div>
+        </Link>
       </div>
     </>
   );
