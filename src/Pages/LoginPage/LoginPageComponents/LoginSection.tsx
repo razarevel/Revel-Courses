@@ -1,8 +1,22 @@
+import { zodResolver } from "@hookform/resolvers/zod/dist/zod.js";
 import { useState } from "react";
+import { useForm } from "react-hook-form";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { MdArrowOutward } from "react-icons/md";
+import { z } from "zod";
+const schema = z.object({
+  email: z.string().min(1, "Please Enter your Email"),
+  password: z.string().min(1, "Please Enter your Password"),
+});
+type formData = z.infer<typeof schema>;
 export default function LoginSection() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isValid },
+  } = useForm<formData>({ resolver: zodResolver(schema) });
   const [showPass, setShowPass] = useState(false);
+  console.log(isValid);
   return (
     <div className="bg-white p-4 sm:p-5 md:p-10 rounded-lg xl:w-[60%] shadow-sm">
       {/* heading */}
@@ -11,57 +25,79 @@ export default function LoginSection() {
         <p>Welcome back! Please log in to access your account.</p>
       </div>
       {/* form */}
-      <div className="space-y-2.5 mt-8">
-        <p className="text-lg">Email</p>
-        <input
-          type="email"
-          className="focus:outline-none border border-[F1F1F3] bg-[#FCFCFD] w-full rounded-lg h-12 px-5"
-          placeholder="Enter your Email"
-        />
-      </div>
-      {/* Password */}
-      <div className="space-y-2.5 mt-5">
-        <p className="text-lg">Password</p>
-        <div className="border border-[F1F1F3] bg-[#FCFCFD] w-full rounded-lg h-12 px-5 flex items-center justify-between">
+      <form onSubmit={handleSubmit((data) => console.log(data))}>
+        <div className="space-y-2.5 mt-8">
+          <label className="text-lg" htmlFor="email">
+            Email
+          </label>
           <input
-            type={!showPass ? "password" : "text"}
-            className="focus:outline-none "
-            placeholder="Enter your password"
+            {...register("email")}
+            type="email"
+            name="email"
+            id="email"
+            className="focus:outline-none border border-[F1F1F3] bg-[#FCFCFD] w-full rounded-lg h-12 px-5"
+            placeholder="Enter your Email"
           />
-          <div
-            className="cursor-pointer relative flex items-center justify-center"
-            onClick={() => {
-              setShowPass(!showPass);
-            }}
-          >
-            {!showPass ? (
-              <FaEye className="absolute scale-110" />
-            ) : (
-              <FaEyeSlash className="absolute scale-110" />
-            )}
-          </div>
+          {errors.email && (
+            <p className="opacity-80 italic translate-x-2 -translate-y-2">
+              {errors.email.message}
+            </p>
+          )}
         </div>
-      </div>
-      {/* forget */}
-      <div className="w-full opacity-80 mt-3 flex items-center justify-end">
-        <p className="cursor-pointer hover:underline">Forget Password?</p>
-      </div>
-      {/*checkbox  */}
-      <div className="space-x-2 flex items-center justify-start ">
-        <input
-          type="checkbox"
-          className="focus:outline-none ring-0 border-0 outline-none w-5 h-5  cursor-pointer opacity-70"
-        />
-        <label className="font-medium opacity-60">Remember me</label>
-      </div>
-      {/* login button */}
-      <button
-        type="submit"
-        className="w-full text-center py-3 bg-[#FF9500] text-white  rounded-lg mt-5 duration-300 hover:opacity-80 text-lg font-medium"
-        onClick={() => window.location.reload()}
-      >
-        Login
-      </button>
+        {/* Password */}
+        <div className="space-y-2.5 mt-5">
+          <label className="text-lg" htmlFor="password">
+            Password
+          </label>
+          <div className="border border-[F1F1F3] bg-[#FCFCFD] w-full rounded-lg h-12 px-5 flex items-center justify-between">
+            <input
+              {...register("password")}
+              type={!showPass ? "password" : "text"}
+              name="password"
+              id="password"
+              className="focus:outline-none "
+              placeholder="Enter your password"
+            />
+            <div
+              className="cursor-pointer relative flex items-center justify-center"
+              onClick={() => {
+                setShowPass(!showPass);
+              }}
+            >
+              {!showPass ? (
+                <FaEye className="absolute scale-110" />
+              ) : (
+                <FaEyeSlash className="absolute scale-110" />
+              )}
+            </div>
+          </div>
+          {errors.password && (
+            <p className="opacity-80 italic translate-x-2 -translate-y-2">
+              {errors.password.message}
+            </p>
+          )}
+        </div>
+
+        {/* forget */}
+        <div className="w-full opacity-80 mt-3 flex items-center justify-end">
+          <p className="cursor-pointer hover:underline">Forget Password?</p>
+        </div>
+        {/*checkbox  */}
+        <div className="space-x-2 flex items-center justify-start ">
+          <input
+            type="checkbox"
+            className="focus:outline-none ring-0 border-0 outline-none w-5 h-5  cursor-pointer opacity-70"
+          />
+          <label className="font-medium opacity-60">Remember me</label>
+        </div>
+        {/* login button */}
+        <button
+          type="submit"
+          className="w-full text-center py-3 bg-[#FF9500] text-white  rounded-lg mt-5 duration-300 hover:opacity-80 text-lg font-medium"
+        >
+          Login
+        </button>
+      </form>
       {/* or */}
       <div className="w-full flex items-center justify-center space-x-2 mt-5 opacity-70">
         <div className="w-full border-t"></div>

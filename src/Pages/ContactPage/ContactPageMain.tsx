@@ -5,11 +5,11 @@ import ContactPageHero from "./ContactPageComponents/ContactPageHero";
 
 export default function ContactPageMain() {
   return (
-    <body className="bg-[#F7F7F8]">
+    <div className="bg-[#F7F7F8]">
       <Navbar />
       <ContactPageHero />
       <ContactFormSection />
       <Footer />
-    </body>
+    </div>
   );
 }
