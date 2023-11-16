@@ -105,10 +105,7 @@ export default function LoginSection() {
         <div className="w-full border-t"></div>
       </div>
       {/* login with google */}
-      <div
-        className="w-full flex items-center justify-center py-3 bg-[#F7F7F8] brorder border-[#F1F1F3]  rounded-lg mt-5 space-x-3 cursor-pointer"
-        onClick={() => window.location.reload()}
-      >
+      <div className="w-full flex items-center justify-center py-3 bg-[#F7F7F8] brorder border-[#F1F1F3]  rounded-lg mt-5 space-x-3 cursor-pointer">
         <div className="">
           <svg
             xmlns="http://www.w3.org/2000/svg"
