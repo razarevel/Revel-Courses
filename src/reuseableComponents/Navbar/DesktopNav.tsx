@@ -19,7 +19,7 @@ export default function DesktopNav() {
         </Link>
         <Link
           to={"/login"}
-          className="text-[1.2rem] bg-yellow-400 px-4 py-2 rounded-lg duration-300 hover:bg-yellow-500 text-slate-100"
+          className="text-[1.2rem] bg-[#FF9500] px-4 py-2 rounded-lg duration-300 hover:bg-yellow-500 text-slate-100"
         >
           Login
         </Link>
