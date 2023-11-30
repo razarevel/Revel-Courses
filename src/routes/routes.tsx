@@ -10,7 +10,7 @@ import ContactPageMain from "../Pages/ContactPage/ContactPageMain";
 const routers = createBrowserRouter([
   { path: "/", element: <HomePageMain /> },
   { path: "/courses", element: <CoursesPageMain /> },
-  { path: "/courses/:id", element: <CoursesOpenPageMain /> },
+  { path: "/courses/:slug", element: <CoursesOpenPageMain /> },
   { path: "/about", element: <AboutUsPageMain /> },
   { path: "/pricing", element: <PricingPageMain /> },
   { path: "/contact", element: <ContactPageMain /> },

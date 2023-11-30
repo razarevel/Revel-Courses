@@ -1,15 +1,18 @@
 import { BsArrowUpRight } from "react-icons/bs";
 
 interface Props {
-  number: number;
+  number: string;
   title: string;
   description: string;
 }
 export default function BenefitCart({ number, title, description }: Props) {
+  let numbers = parseInt(number);
   return (
     <div className="px-6 py-8 bg-white rounded-lg shadow-sm space-y-3">
       <div className="flex items-end justify-end">
-        <h1 className="text-5xl font-semibold">0{number}</h1>
+        <h1 className="text-5xl font-semibold">
+          {numbers < 10 ? 0 + number : number}
+        </h1>
       </div>
       <div className="space-y-3">
         <h1 className="text-xl font-semibold">{title}</h1>

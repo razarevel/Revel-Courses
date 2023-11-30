@@ -6,10 +6,9 @@ import FAQSection from "./homeComponents/FAQSection/FAQSection";
 import PricingSectionMain from "./homeComponents/PricingSection/PricingSectionMain";
 import TestimonialSectionMain from "./homeComponents/TestimonialSection/TestimonialSectionMain";
 import HeroSectionMain from "./homeComponents/heroSection/HeroSectionMain";
-
 export default function HomePageMain() {
   return (
-    <body className="bg-[#F7F7F8]">
+    <div className="bg-[#F7F7F8]">
       <Navbar />
       <HeroSectionMain />
       <BenefitSectionMain />
@@ -18,6 +17,6 @@ export default function HomePageMain() {
       <PricingSectionMain />
       <FAQSection />
       <Footer />
-    </body>
+    </div>
   );
 }

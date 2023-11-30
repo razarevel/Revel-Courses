@@ -1,11 +1,14 @@
+import { Link } from "react-router-dom";
+import useCounter from "../../../Slug";
 interface Props {
   title: string;
   description: string;
+  slug: string;
   img: string[];
-  weeks: number;
+  weeks: string;
   level: string;
   instructor: string;
-  Section: { number: number; title: string }[];
+  Section: { leasson: number; heading: string }[];
 }
 export default function CoursePageCard({
   title,
@@ -15,7 +18,9 @@ export default function CoursePageCard({
   level,
   instructor,
   Section,
+  slug,
 }: Props) {
+  const { setSlug } = useCounter();
   return (
     <div className="bg-white w-full px-8 py-6 rounded-lg shadow-md space-y-6">
       {/* heading */}
@@ -24,9 +29,13 @@ export default function CoursePageCard({
           <h1 className="text-xl md:text-2xl font-semibold">{title}</h1>
           <p>{description}</p>
         </div>
-        <button className="border px-4 py-2 rounded-md font-medium duration-300 hover:bg-[#FF9500] hover:text-white">
+        <Link
+          to={`/courses/${slug}`}
+          className="border px-4 py-2 rounded-md font-medium duration-300 hover:bg-[#FF9500] hover:text-white"
+          onClick={() => setSlug(slug)}
+        >
           View Course
-        </button>
+        </Link>
       </div>
       {/* imgs */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
@@ -52,8 +61,8 @@ export default function CoursePageCard({
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5 p-3 lg:px-10 lg:py-4">
           {Section.map((el, index) => (
             <div key={index} className="space-y-2">
-              <h1 className="text-4xl font-bold">0{el.number}</h1>
-              <p>{el.title}</p>
+              <h1 className="text-4xl font-bold">0{el.leasson}</h1>
+              <p>{el.heading}</p>
             </div>
           ))}
         </div>

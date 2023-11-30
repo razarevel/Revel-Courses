@@ -1,12 +1,13 @@
 import { Link } from "react-router-dom";
-
+import useCounter from "../../../../Slug";
 interface Props {
   img: string;
-  weeks: number;
+  weeks: string;
   level: string;
   instructor: string;
   title: string;
   description: string;
+  slug: string;
 }
 export default function CoursesCard({
   img,
@@ -15,7 +16,9 @@ export default function CoursesCard({
   instructor,
   title,
   description,
+  slug,
 }: Props) {
+  const { Slug, setSlug } = useCounter();
   return (
     <>
       <div className="flex flex-col px-4 py-6 bg-white rounded-lg space-y-6">
@@ -36,8 +39,11 @@ export default function CoursesCard({
         </div>
         {/* button */}
         <Link
-          to={""}
+          to={`/courses/:${slug}`}
           className="bg-[#F7F7F8] border border-[#F1F1F3]  text-center py-2 font-medium rounded-lg hover:border-black hover:bg-white duration-300"
+          onClick={() => {
+            setSlug(slug);
+          }}
         >
           Get it Now
         </Link>

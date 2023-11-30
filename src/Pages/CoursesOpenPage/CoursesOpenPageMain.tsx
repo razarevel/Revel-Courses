@@ -1,4 +1,5 @@
+import useCounter from "../../Slug";
 export default function CoursesOpenPageMain() {
-    return <>Welcome to courses open page</>;
-  }
-  
+  const { Slug } = useCounter();
+  return <>Welcome to courses open page of {Slug}</>;
+}
