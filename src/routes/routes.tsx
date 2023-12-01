@@ -6,6 +6,9 @@ import AboutUsPageMain from "../Pages/AboutUsPage/AboutUsPageMain";
 import LoginPageMain from "../Pages/LoginPage/LoginPageMain";
 import PricingPageMain from "../Pages/PricingPage/PricingPageMain";
 import ContactPageMain from "../Pages/ContactPage/ContactPageMain";
+import SignupPage from "../Pages/signupPage/SignupPage";
+import ForgotPassword from "../Pages/ForgotPassword/ForgotPassword";
+import ResetPassword from "../Pages/ForgotPassword/ResetPassword";
 
 const routers = createBrowserRouter([
   { path: "/", element: <HomePageMain /> },
@@ -15,5 +18,8 @@ const routers = createBrowserRouter([
   { path: "/pricing", element: <PricingPageMain /> },
   { path: "/contact", element: <ContactPageMain /> },
   { path: "/login", element: <LoginPageMain /> },
+  { path: "/signup", element: <SignupPage /> },
+  { path: "/forgotPassword", element: <ForgotPassword /> },
+  { path: "/resetPassword", element: <ResetPassword /> },
 ]);
 export default routers;

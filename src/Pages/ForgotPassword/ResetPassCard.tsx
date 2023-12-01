@@ -10,16 +10,14 @@ import { z } from "zod";
 interface Data {
   email: string;
   password: string;
+  passwordConform: string;
 }
 const schema = z.object({
-  email: z.string().min(1, "Please Enter your Email"),
   password: z.string().min(1, "Please Enter your Password"),
+  passwordConform: z.string().min(1, "Please Enter your Password"),
 });
 type formData = z.infer<typeof schema>;
-// if token exit
-
-//
-export default function LoginSection() {
+export default function ResetPassCard() {
   const {
     register,
     handleSubmit,
@@ -28,95 +26,50 @@ export default function LoginSection() {
   const [data, setData] = useState<Data>();
   const [showPass, setShowPass] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [remMe, setRemMe] = useState(false);
   const [sent, setSent] = useState(false);
-  const [isLogged, setIsLogged] = useState(false);
   const [isFound, setIsFound] = useState(false);
+  const [same, isSame] = useState(false);
+
   useEffect(() => {
-    if (localStorage.getItem("token")) {
-      const token = { token: localStorage.getItem("token") };
-      axios
-        .post("http://127.0.0.1:3001/api/getUserByToken", token)
-        .then((res) => {
-          localStorage.setItem("name", res.data.data.user.name);
-          setIsLogged(true);
-        });
-    }
-    if (localStorage.getItem("email") && localStorage.getItem("password")) {
-      const data = {
-        email: localStorage.getItem("email"),
-        password: localStorage.getItem("password"),
-      };
-      axios
-        .post("http://127.0.0.1:3001/api/login", data)
-        .then((res) => {
-          localStorage.setItem("token", res.data.Token);
-          setIsLogged(true);
-          console.log(res.data);
-          localStorage.removeItem("email");
-          localStorage.removeItem("password");
-        })
-        .catch((err) => {
-          console.log(err.message);
-          setIsLoading(false);
-        });
-    }
     if (sent) {
       axios
-        .post("http://127.0.0.1:3001/api/login", data)
+        .patch("http://127.0.0.1:3001/api/resetPassword", data)
         .then((res) => {
-          localStorage.setItem("token", res.data.Token);
-          setIsLogged(true);
-          setIsFound(false);
+          console.log(res.data);
+          if (data?.password) localStorage.setItem("password", data?.password);
+          setIsFound(true);
         })
         .catch((err) => {
-          console.log(err.message);
-          setIsFound(true);
+          console.log(err.response.data.message);
           setIsLoading(false);
         });
     }
-  }, [sent, isLoading]);
-  if (isLogged) {
-    return <Navigate to={"/courses"} />;
+  }, [sent]);
+  if (
+    isFound ||
+    (localStorage.getItem("email") && localStorage.getItem("password"))
+  ) {
+    return <Navigate to={"/login"} />;
   }
   return (
     <div className="bg-white p-4 sm:p-5 md:p-10 rounded-lg xl:w-[60%] shadow-sm">
       {/* heading */}
       <div className="text-center space-y-3">
-        <h1 className="text-4xl font-semibold">Login</h1>
+        <h1 className="text-4xl font-semibold">Reset Password</h1>
         <p>Welcome back! Please log in to access your account.</p>
       </div>
       {/* form */}
       <form
-        onSubmit={handleSubmit((data) => {
+        onSubmit={handleSubmit((data: any) => {
+          if (data.password !== data.passwordConform) isSame(true);
+          else isSame(false);
+          data.email = localStorage.getItem("email");
           setData(data);
+          console.log(data);
           setIsLoading(true);
           setSent(true);
         })}
       >
-        <div className="space-y-2.5 mt-8">
-          <label className="text-lg" htmlFor="email">
-            Email
-          </label>
-          <input
-            {...register("email")}
-            type="email"
-            name="email"
-            id="email"
-            className="focus:outline-none border border-[F1F1F3] bg-[#FCFCFD] w-full rounded-lg h-12 px-5"
-            placeholder="Enter your Email"
-          />
-          {errors.email && (
-            <p className="opacity-80 italic translate-x-2 -translate-y-2">
-              {errors.email.message}
-            </p>
-          )}
-          {isFound && (
-            <p className="opacity-80 italic translate-x-2 -translate-y-2">
-              Invalid Email or Password
-            </p>
-          )}
-        </div>
         {/* Password */}
         <div className="space-y-2.5 mt-5">
           <label className="text-lg" htmlFor="password">
@@ -149,38 +102,57 @@ export default function LoginSection() {
               {errors.password.message}
             </p>
           )}
-          {isFound && (
+        </div>
+        {/* Conform Password */}
+        <div className="space-y-2.5 mt-5">
+          <label className="text-lg" htmlFor="passwordConform">
+            Conform Password
+          </label>
+          <div className="border border-[F1F1F3] bg-[#FCFCFD] w-full rounded-lg h-12 px-5 flex items-center justify-between">
+            <input
+              {...register("passwordConform")}
+              type={!showPass ? "password" : "text"}
+              name="passwordConform"
+              id="passwordConform"
+              className="focus:outline-none "
+              placeholder="Enter your password"
+            />
+            <div
+              className="cursor-pointer relative flex items-center justify-center"
+              onClick={() => {
+                setShowPass(!showPass);
+              }}
+            >
+              {!showPass ? (
+                <FaEye className="absolute scale-110" />
+              ) : (
+                <FaEyeSlash className="absolute scale-110" />
+              )}
+            </div>
+          </div>
+          {errors.password && (
             <p className="opacity-80 italic translate-x-2 -translate-y-2">
-              Invalid Email or Password
+              {errors.password.message}
+            </p>
+          )}
+          {same && (
+            <p className="opacity-80 italic translate-x-2 -translate-y-2">
+              Password and Conform should be same.
             </p>
           )}
         </div>
-
         {/* forget */}
         <div className="w-full opacity-80 mt-3 flex items-center justify-end">
-          <Link
-            to={"/forgotPassword"}
-            className="cursor-pointer hover:underline"
-          >
-            Forget Password?
+          <Link to={"/login"} className="cursor-pointer hover:underline">
+            Login?
           </Link>
-        </div>
-        {/*checkbox  */}
-        <div className="space-x-2 flex items-center justify-start ">
-          <input
-            onChange={() => setRemMe(!remMe)}
-            type="checkbox"
-            checked={remMe}
-            className="focus:outline-none ring-0 border-0 outline-none w-5 h-5  cursor-pointer opacity-70"
-          />
-          <label className="font-medium opacity-60">Remember me</label>
         </div>
         {/* login button */}
         <button
           type="submit"
-          disabled={isValid && remMe && !isLoading ? false : true}
+          disabled={isValid && !isLoading ? false : true}
           className={`w-full text-center py-3 bg-[#FF9500] text-white flex items-center justify-center rounded-lg mt-5 duration-300 ${
-            isValid && remMe && !isLoading
+            isValid && !isLoading
               ? " opacity-100 hover:opacity-80 "
               : " opacity-50 cursor-not-allowed "
           } text-lg font-medium `}

@@ -7,7 +7,7 @@ import PricingPageHeading from "./PricingPageComponents/PricingPageHeading";
 
 export default function PricingPageMain() {
   return (
-    <body className="bg-[#F7F7F8]">
+    <div className="bg-[#F7F7F8]">
       <Navbar />
       <PricingPageHeading />
       <div className="space-y-32 pb-20 pt-10">
@@ -18,6 +18,6 @@ export default function PricingPageMain() {
         <FAQSection />
       </div>
       <Footer />
-    </body>
+    </div>
   );
 }

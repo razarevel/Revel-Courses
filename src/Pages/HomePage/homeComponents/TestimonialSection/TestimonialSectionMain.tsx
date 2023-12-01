@@ -2,9 +2,9 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import TestimonialgridCard from "./TestimonialgridCard";
 interface data {
-  img: string;
-  message: string;
-  name: string;
+  img: string | any;
+  message: string | any;
+  name: string | any;
   _id: any;
 }
 export default function TestimonialSectionMain() {

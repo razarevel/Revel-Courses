@@ -2,7 +2,7 @@ import { create } from "zustand";
 
 interface Props {
   Slug: string;
-  setSlug: (newString: string) => void;
+  setSlug: (newString: string | any) => void;
 }
 const useCounter = create<Props>((set) => ({
   Slug: "",

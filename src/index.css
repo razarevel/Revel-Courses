@@ -13,3 +13,8 @@
 textarea {
   resize: none;
 }
+.customShadow:hover {
+  box-shadow: 0px 1px 13px 4px rgba(255, 213, 153, 0.75);
+  -webkit-box-shadow: 0px 1px 13px 4px rgba(255, 213, 153, 0.75);
+  -moz-box-shadow: 0px 1px 13px 4px rgba(255, 213, 153, 0.75);
+}

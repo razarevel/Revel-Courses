@@ -6,94 +6,103 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { MdArrowOutward } from "react-icons/md";
 import { Link, Navigate } from "react-router-dom";
 import { z } from "zod";
-
 interface Data {
+  name: string;
   email: string;
   password: string;
+  passwordConform: string;
 }
 const schema = z.object({
+  name: z
+    .string()
+    .min(1, "PLease Enter your name")
+    .max(20, "Full name can't be greater than 4"),
   email: z.string().min(1, "Please Enter your Email"),
   password: z.string().min(1, "Please Enter your Password"),
+  passwordConform: z.string().min(1, "Please Enter Conform your Password"),
 });
 type formData = z.infer<typeof schema>;
-// if token exit
 
-//
-export default function LoginSection() {
+export default function SignupCard() {
   const {
     register,
     handleSubmit,
     formState: { errors, isValid },
   } = useForm<formData>({ resolver: zodResolver(schema) });
-  const [data, setData] = useState<Data>();
   const [showPass, setShowPass] = useState(false);
+  const [agree, setAgree] = useState(false);
+  const [data, setData] = useState<Data>();
+  const [exist, setExist] = useState(false);
+  const [sent, setSend] = useState(false);
+  const [passCheck, setPassCheck] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [remMe, setRemMe] = useState(false);
-  const [sent, setSent] = useState(false);
-  const [isLogged, setIsLogged] = useState(false);
-  const [isFound, setIsFound] = useState(false);
+  const [isSignup, setIsSignUp] = useState(false);
   useEffect(() => {
-    if (localStorage.getItem("token")) {
-      const token = { token: localStorage.getItem("token") };
-      axios
-        .post("http://127.0.0.1:3001/api/getUserByToken", token)
-        .then((res) => {
-          localStorage.setItem("name", res.data.data.user.name);
-          setIsLogged(true);
-        });
-    }
-    if (localStorage.getItem("email") && localStorage.getItem("password")) {
-      const data = {
-        email: localStorage.getItem("email"),
-        password: localStorage.getItem("password"),
-      };
-      axios
-        .post("http://127.0.0.1:3001/api/login", data)
-        .then((res) => {
-          localStorage.setItem("token", res.data.Token);
-          setIsLogged(true);
-          console.log(res.data);
-          localStorage.removeItem("email");
-          localStorage.removeItem("password");
-        })
-        .catch((err) => {
-          console.log(err.message);
-          setIsLoading(false);
-        });
-    }
     if (sent) {
+      setIsLoading(true);
       axios
-        .post("http://127.0.0.1:3001/api/login", data)
+        .post("http://127.0.0.1:3001/api/signup", data)
         .then((res) => {
+          setExist(false);
           localStorage.setItem("token", res.data.Token);
-          setIsLogged(true);
-          setIsFound(false);
+          setIsSignUp(true);
         })
         .catch((err) => {
-          console.log(err.message);
-          setIsFound(true);
+          console.log(err.response.data);
           setIsLoading(false);
+          setExist(true);
         });
+      setSend(false);
     }
-  }, [sent, isLoading]);
-  if (isLogged) {
+  }, [sent]);
+  const [showAgreeErr, setShowAgreeErr] = useState(false);
+  console.log(isValid, agree);
+  if (isSignup) {
     return <Navigate to={"/courses"} />;
   }
   return (
     <div className="bg-white p-4 sm:p-5 md:p-10 rounded-lg xl:w-[60%] shadow-sm">
       {/* heading */}
       <div className="text-center space-y-3">
-        <h1 className="text-4xl font-semibold">Login</h1>
-        <p>Welcome back! Please log in to access your account.</p>
+        <h1 className="text-4xl font-semibold">SignUp</h1>
+        <p>Welcome! Please Sign up to gain access to any course.</p>
       </div>
       {/* form */}
       <form
         onSubmit={handleSubmit((data) => {
-          setData(data);
-          setIsLoading(true);
-          setSent(true);
+          if (agree) {
+            if (data.password !== data.passwordConform)
+              return setPassCheck(true);
+            else {
+              setPassCheck(false);
+              setData(data);
+              setShowAgreeErr(false);
+              setSend(!sent);
+              return;
+            }
+          } else setShowAgreeErr(true);
         })}
       >
+        {/* full Name */}
+        <div className="space-y-2.5 mt-8">
+          <label className="text-lg" htmlFor="name">
+            Full Name
+          </label>
+          <input
+            {...register("name")}
+            type="name"
+            name="name"
+            id="name"
+            className="focus:outline-none border border-[F1F1F3] bg-[#FCFCFD] w-full rounded-lg h-12 px-5"
+            placeholder="Enter your Full Name"
+          />
+          {errors.name && (
+            <p className="opacity-80 italic translate-x-2 -translate-y-2">
+              {errors.name?.message}
+            </p>
+          )}
+        </div>
+        {/* Email */}
         <div className="space-y-2.5 mt-8">
           <label className="text-lg" htmlFor="email">
             Email
@@ -111,9 +120,9 @@ export default function LoginSection() {
               {errors.email.message}
             </p>
           )}
-          {isFound && (
+          {exist && (
             <p className="opacity-80 italic translate-x-2 -translate-y-2">
-              Invalid Email or Password
+              Email Already Exist Please Login in
             </p>
           )}
         </div>
@@ -149,44 +158,81 @@ export default function LoginSection() {
               {errors.password.message}
             </p>
           )}
-          {isFound && (
+        </div>
+        {/* confrom password */}
+        <div className="space-y-2.5 mt-5">
+          <label className="text-lg" htmlFor="passwordConform">
+            Conform Password
+          </label>
+          <div className="border border-[F1F1F3] bg-[#FCFCFD] w-full rounded-lg h-12 px-5 flex items-center justify-between">
+            <input
+              {...register("passwordConform")}
+              type={!showPass ? "password" : "text"}
+              name="passwordConform"
+              id="passwordConform"
+              className="focus:outline-none "
+              placeholder="Re-enter  your password"
+            />
+            <div
+              className="cursor-pointer relative flex items-center justify-center"
+              onClick={() => {
+                setShowPass(!showPass);
+              }}
+            >
+              {!showPass ? (
+                <FaEye className="absolute scale-110" />
+              ) : (
+                <FaEyeSlash className="absolute scale-110" />
+              )}
+            </div>
+          </div>
+          {errors.passwordConform && (
             <p className="opacity-80 italic translate-x-2 -translate-y-2">
-              Invalid Email or Password
+              {errors.passwordConform?.message}
+            </p>
+          )}
+          {passCheck && (
+            <p className="opacity-80 italic translate-x-2 -translate-y-2">
+              Conform password isn't the same as password
             </p>
           )}
         </div>
 
-        {/* forget */}
-        <div className="w-full opacity-80 mt-3 flex items-center justify-end">
-          <Link
-            to={"/forgotPassword"}
-            className="cursor-pointer hover:underline"
-          >
-            Forget Password?
-          </Link>
-        </div>
         {/*checkbox  */}
-        <div className="space-x-2 flex items-center justify-start ">
+        <div className="space-x-2 flex items-center justify-start pt-6">
           <input
-            onChange={() => setRemMe(!remMe)}
+            onChange={() => {
+              setAgree(!agree);
+              setShowAgreeErr(false);
+            }}
+            checked={agree}
             type="checkbox"
-            checked={remMe}
             className="focus:outline-none ring-0 border-0 outline-none w-5 h-5  cursor-pointer opacity-70"
           />
-          <label className="font-medium opacity-60">Remember me</label>
+          <label className="font-medium opacity-60">
+            <p>
+              I agree with <span className="underline">Terms of Use</span> and{" "}
+              <span className="underline">Privacy Policy</span>
+            </p>
+          </label>
         </div>
+        {showAgreeErr && (
+          <p className="opacity-80 italic translate-x-2 -translate-y-2 pt-3">
+            Please click on agree to continous
+          </p>
+        )}
         {/* login button */}
         <button
           type="submit"
-          disabled={isValid && remMe && !isLoading ? false : true}
+          disabled={isValid && agree && !isLoading ? false : true}
           className={`w-full text-center py-3 bg-[#FF9500] text-white flex items-center justify-center rounded-lg mt-5 duration-300 ${
-            isValid && remMe && !isLoading
+            (isValid && agree) || isLoading
               ? " opacity-100 hover:opacity-80 "
-              : " opacity-50 cursor-not-allowed "
-          } text-lg font-medium `}
+              : " opacity-70 cursor-not-allowed "
+          }  text-lg font-medium`}
         >
           {!isLoading ? (
-            <p>Login</p>
+            <p>Sign up</p>
           ) : (
             <div role="status">
               <svg
@@ -260,16 +306,16 @@ export default function LoginSection() {
             />
           </svg>
         </div>
-        <p className="font-medium">Login with Google</p>
+        <p className="font-medium">Sign up with Google</p>
       </div>
       {/* Sign up */}
       <div className="w-full flex items-center justify-center space-x-1 mt-5 cursor-pointer group">
-        <p className="cursor-pointer opacity-90">Don't have an account?</p>
+        <p className="cursor-pointer opacity-90">Already have an account</p>
         <div className="flex items-center justify-center cursor-pointer  opacity-90">
-          <Link to={"/signup"} className="font-medium underline">
-            SignUp
+          <Link to={"/login"} className="font-medium underline">
+            Login
           </Link>
-          <Link to={"/signup"}>
+          <Link to={"/login"}>
             <MdArrowOutward
               size="24"
               className="opacity-80 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 duration-300"

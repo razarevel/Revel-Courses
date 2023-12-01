@@ -7,7 +7,7 @@ import JoinSectionMain from "./AboutUsPageComponents/JoinSection/JoinSectionMain
 
 export default function AboutUsPageMain() {
   return (
-    <body className="bg-[#F7F7F8]">
+    <div className="bg-[#F7F7F8]">
       <Navbar />
       <AboutPageHero />
       <div className="space-y-32">
@@ -16,6 +16,6 @@ export default function AboutUsPageMain() {
       </div>
       <JoinSectionMain />
       <Footer />
-    </body>
+    </div>
   );
 }

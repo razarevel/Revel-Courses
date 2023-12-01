@@ -32,7 +32,10 @@ export default function CoursePageCard({
         <Link
           to={`/courses/${slug}`}
           className="border px-4 py-2 rounded-md font-medium duration-300 hover:bg-[#FF9500] hover:text-white"
-          onClick={() => setSlug(slug)}
+          onClick={() => {
+            setSlug(slug);
+            localStorage.setItem("slug", slug);
+          }}
         >
           View Course
         </Link>
